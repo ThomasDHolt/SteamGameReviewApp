@@ -53,8 +53,49 @@ app.get("/games/getGameReviewsByGameId/:gameId", async (req, res) => {
     res.json(result.rows);
 });
 
+app.post("/reviews/postGameReviewByGameId/:gameId", async (req, res) => {
+    const gameId = req.params.gameId;
+    const body = req.body;
+
+    const reviewNameFromClient = body.reviewee;
+    const reviewContentFromClient = body.content;
+    const reviewDateFromClient = body.date;
+    const reviewRatingFromClient = body.rating;
+
+    const data = await db.query(
+        'INSERT INTO reviews (reviewee, content, review_date, rating) VALUES ($1, $2, $3, $4)',
+        [reviewNameFromClient, reviewContentFromClient, reviewDateFromClient, reviewRatingFromClient]
+    );
+
+    res.send(data);
+});
+
+app.post("/games/postGameIdAndReviewId", async (req, res) => {
+    const gameId = body.gameId;
+    const reviewId = body.reviewId;
+
+    const data = await db.query(
+        'INSERT INTO games_reviews (game_id, review_id) VALUES ($1, $2)',
+        [gameId, reviewId]
+    );
+
+    res.send(data);
+});
+
 app.get("/reviews", async (req, res) => {
     const result = await db.query('SELECT * FROM reviews');
+
+    res.json(result.rows);
+});
+
+app.get("/reviews/getReviewId", async (req, res) => {
+    const reviewName = req.body.reviewee;
+    const reviewContent = req.body.content;
+
+    const result = await db.query(
+        'SELECT id FROM reviews WHERE reviews.reviewee = $1 AND reviews.content = $2',
+        [reviewName, reviewContent]
+    );
 
     res.json(result.rows);
 });
