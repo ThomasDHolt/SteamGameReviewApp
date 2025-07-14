@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { GamesCardCollection } from "../components/GameCardCollection";
 
 export default function GamesPage() {
     const [games, setGames] = useState([]);
-    const [thumbnails, setThumbnails] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -11,12 +11,11 @@ export default function GamesPage() {
             setGames(data);
         }
         fetchData();
-        fetchThumbnailData();
     }, []);
 
     return (
         <>
-            
+            <GamesCardCollection games={games} />
         </>
     );
 }

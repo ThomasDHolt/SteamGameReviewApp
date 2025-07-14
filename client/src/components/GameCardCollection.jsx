@@ -1,20 +1,21 @@
-import { useState } from "react";
 import { GameCard } from "./GameCard";
 
 export function GamesCardCollection({games}) {
+    console.log(games);
+
     return (
         <div>
-            {games.map((game) => {
-                <GameCard
+            {games.map((game) => (
+                <GameCard key={game.id}
                     game={{
-                        name: game.name,
-                        description: game.description,
+                        name: game.game_name,
+                        description: game.game_description,
                         releaseDate: game.date_of_release,
                         genres: game.genres,
-                        thumbnailSrc: game.thumbnailSrc
+                        thumbnailSrc: game.thumbnail_src
                     }}
                 />
-            })}
+            ))}
         </div>
     );
 }
