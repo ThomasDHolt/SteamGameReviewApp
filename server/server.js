@@ -64,6 +64,17 @@ app.get("/games/getGameReviewsByGameId/:gameId", async (req, res) => {
     res.json(result.rows);
 });
 
+app.get("/games/getGameReviewsByGameName/:gameName", async (req, res) => {
+    const gameName = req.params.gameName;
+
+    const result = await db.query(
+        'SELECT games.name AS game_name, reviews.reviewee AS reviewee_name, reviews.content, reviews.review_date, reviews.rating FROM games JOIN games_reviews ON games.id = games_reviews.game_id JOIN reviews ON games_reviews.review_id = reviews.id WHERE games.name = $1',
+        [gameName]
+    );
+
+    res.json(result.rows);
+});
+
 app.post("/reviews/postGameReviewByGameId/:gameId", async (req, res) => {
     const gameId = req.params.gameId;
     const body = req.body;
