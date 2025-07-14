@@ -16,7 +16,13 @@ export function ReviewForm({game}) {
         const currentDate = new Date();
         const dateString = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
 
-        await fetch("https://steamgamereviewapp-server.onrender.com/games")
+        await fetch("https://steamgamereviewapp-server.onrender.com/reviews/postGameReview", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(formValues)
+        });
     }
 
     function handleInputChange(event) {

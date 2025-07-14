@@ -2,6 +2,7 @@ import express, { response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
+import { useState } from "react";
 
 const app = express();
 
@@ -21,6 +22,14 @@ app.get("/", (req, res) => {
 app.get("/games", async (req, res) => {
     const result = await db.query(
         'SELECT games.id, games.name AS game_name, games.description AS game_description, games.date_of_release, ARRAY_AGG(genres.name) AS genres, thumbnails.src AS thumbnail_src FROM games JOIN games_genres ON games.id = games_genres.game_id JOIN genres ON games_genres.genre_id = genres.id JOIN games_thumbnails ON games.id = games_thumbnails.game_id JOIN thumbnails ON games_thumbnails.thumbnail_id = thumbnails.id GROUP BY games.id, games.name, games.description, games.date_of_release, thumbnails.src');
+
+    res.json(result.rows);
+});
+
+app.get("/games/getGameIdByName/:gameName", async (req, res) => {
+    const gameName = req.params.gameName;
+
+    const result = await db.query('SELECT id FROM games WHERE games.name = $1', [gameName]);
 
     res.json(result.rows);
 });
