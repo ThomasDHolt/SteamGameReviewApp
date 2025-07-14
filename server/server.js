@@ -34,6 +34,16 @@ app.get("/games/getGameByid/:gameId", async (req, res) => {
     res.json(result.rows);
 });
 
+app.get("/games/getGameByName/:gameName", async (req, res) => {
+    const gameName = req.params.gameName;
+
+    const result = await db.query(
+        'SELECT games.name AS game_name, games.description AS game_description, games.date_of_release, ARRAY_AGG(genres.name) AS genres FROM games JOIN games_genres ON games.id = games_genres.game_id JOIN genres ON games_genres.genre_id = genres.id WHERE games.name = $1 GROUP BY games.name, games.description, games.date_of_release',
+        [gameName]);
+
+    res.json(result.rows);
+});
+
 app.get("/games/getGameReviews", async (req, res) => {
     const result = await db.query(
         'SELECT games.name AS game_name, reviews.reviewee AS reviewee_name, reviews.content, reviews.review_date, reviews.rating FROM games JOIN games_reviews ON games.id = games_reviews.game_id JOIN reviews ON games_reviews.review_id = reviews.id'
