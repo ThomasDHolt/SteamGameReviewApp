@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function GamesPage() {
     const [games, setGames] = useState([]);
@@ -6,9 +6,11 @@ export default function GamesPage() {
     useEffect(() => {
         async function fetchData() {
             const response = await fetch("https://steamgamereviewapp-server.onrender.com/games");
-            console.log(response);
+            const data = await response.json();
+            console.log(data);
         }
-    });
+        fetchData();
+    }, []);
 
     return (
         <>
