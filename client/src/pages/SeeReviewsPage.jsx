@@ -13,6 +13,11 @@ export default function SeeReviewsPage () {
             setReviews(data);
         }
         fetchData();
+
+        const intervalId = setInterval(fetchData, 5000);
+
+        return () => clearInterval(intervalId);
+
     }, [gameName]);
 
     return (
