@@ -1,8 +1,6 @@
 import { GameCard } from "./GameCard";
 
 export function GamesCardCollection({games}) {
-    console.log(games);
-
     return (
         <div>
             {games.map((game) => (

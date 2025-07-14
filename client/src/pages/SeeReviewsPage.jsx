@@ -7,10 +7,8 @@ export default function SeeReviewsPage () {
 
     useEffect(() => {
         async function fetchData() {
-            console.log(gameName);
             const response = await fetch(`https://steamgamereviewapp-server.onrender.com/games/getGameReviewsByGameName/${gameName}`);
             const data = await response.json();
-            console.log(data);
             setReviews(data);
         }
         fetchData();
