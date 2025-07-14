@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { ReviewsCardCollection } from "../components/ReviewCardCollection";
 
 export default function SeeReviewsPage () {
     const { gameName } = useParams();
@@ -16,7 +17,7 @@ export default function SeeReviewsPage () {
 
     return (
         <>
-            
+            <ReviewsCardCollection reviews={reviews} />
         </>
     );
 }

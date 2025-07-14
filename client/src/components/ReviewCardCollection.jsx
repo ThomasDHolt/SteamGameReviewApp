@@ -1,11 +1,16 @@
 import { ReviewCard } from "./ReviewCard";
 
-export function GamesCardCollection({reviews}) {
+export function ReviewsCardCollection({reviews}) {
     return (
         <div>
             {reviews.map((review) => (
-                <ReviewCard key={review.id}
-
+                <ReviewCard key={review.review_id}
+                    review={{
+                        reviewee: review.reviewee_name,
+                        content: review.content,
+                        date: review.review_date,
+                        rating: review.rating
+                    }}
                 />
             ))}
         </div>

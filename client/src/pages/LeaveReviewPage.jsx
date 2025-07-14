@@ -5,7 +5,7 @@ export default function LeaveReviewPage() {
 
     return (
         <>
-            <p>{gameName}</p>
+            
         </>
     )
 }
