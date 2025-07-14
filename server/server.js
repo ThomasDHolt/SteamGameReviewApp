@@ -75,7 +75,7 @@ app.get("/games/getGameReviewsByGameName/:gameName", async (req, res) => {
     res.json(result.rows);
 });
 
-app.post("/reviews/postGameReviewByGameId/:gameId", async (req, res) => {
+app.post("/reviews/postGameReview", async (req, res) => {
     const gameId = req.params.gameId;
     const body = req.body;
 
